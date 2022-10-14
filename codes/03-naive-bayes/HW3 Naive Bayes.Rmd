@@ -1,0 +1,69 @@
+---
+title: "HW3 Naive Bayes"
+output: html_document
+date: "2022-10-13"x
+---
+```{r}
+library('tidyverse')
+library('lattice')
+library('caret')
+library('caTools')
+library('e1071')
+library('GGally')
+```
+
+```{r}
+data<-read_csv('/Users/adw10/Desktop/anly-501-project-ADW10/data/01-modified-data/WC cleaned data.csv')
+
+```
+```{r}
+data<-data%>% select(neutral,rank_x,weighted_points_x,rank_y,weighted_points_y,weighted_diff,rank_diff,label)
+#Split data into train and test data
+split<-sample.split(data$label,SplitRatio=0.7)
+train_a1<-subset(data,split=="TRUE")
+test_a1<-subset(data,split=="FALSE")
+
+# Make scale
+train_scale<- scale(train_a1[,1:4])
+test_scale <- scale(test_a1[, 1:4])
+
+#Use Naive Bayes model to train dataset
+classifier_a1<-naiveBayes(label ~ ., data=train_a1)
+classifier_a1
+
+
+
+```
+
+```{r}
+#Testing data prediction
+y_pred<-predict(classifier_a1,newdata = test_a1)
+#Make a confusion matrix
+matrix<-confusionMatrix(data=y_pred,reference =as.factor(test_a1$label))
+matrix
+
+
+```
+
+```{r}
+x<-ggcorr(data[,1:4],method = c("everything", "pearson")) +
+  ggtitle("Correlation betweent features")+
+  theme(plot.title = element_text(size = 20))
+ggsave("features.png", x, path = '/Users/adw10/Desktop/anly-501-project-ADW10/501-project-website/images',width = 12,height = 8)
+x
+```
+
+```{r}
+#Confusion matrix
+plt <- as.data.frame(matrix$table)
+plt$Prediction <- factor(plt$Prediction, levels=rev(levels(plt$Prediction)))
+cm=ggplot(plt, aes(Prediction,Reference, fill= Freq)) +
+        geom_tile() + geom_text(aes(label=Freq)) +
+        scale_fill_gradient(low="pink", high="White") +
+        labs(x = "Predict Labels",y = "Actual Labels") +
+        ggtitle("Confusion Matrix ")+
+        theme(plot.title = element_text(size = 20))
+ggsave("confusion_matirx_naive_bayes.png", cm, path = '/Users/adw10/Desktop/anly-501-project-ADW10/501-project-website/images',width = 12,height = 8)
+cm
+
+```

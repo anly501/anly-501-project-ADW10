@@ -13,7 +13,7 @@ library('GGally')
 ```
 
 ```{r}
-data<-read_csv('/Users/adw10/Desktop/anly-501-project-ADW10/data/01-modified-data/WC cleaned data.csv')
+data<-read_csv('/Users/adw10/Desktop/anly-501-project-ADW10/data/00-raw-data/WC cleaned data.csv')
 
 ```
 ```{r}

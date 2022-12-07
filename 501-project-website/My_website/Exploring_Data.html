@@ -9,13 +9,35 @@
         .top-bar{background-image: url("https://images7.alphacoders.com/122/1225577.jpg");;background-size:cover;height:800px; weight:500px;display:flex;flex-direction: row;}
            .top-title{font-size:15px;color:azure;padding-top: 95px;padding-left: 65px;}
            .Link1{font-size: 20px;font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;}
+           .side_bar{border-bottom: #b00404 solid 3px;display:flex; flex-direction: row;justify-content:flex-start;padding-left: 8px;background-color:	#333333;padding-top: 13px;padding-bottom: 12px;}        
+        .side_bar a:link{color:white ;}
+        .side_bar a:visited{color:white;}
+        .side_bar a{text-decoration: none;margin-left: 21.5px;font-size: 16px;font-weight:normal;}
+        .box1{display:flex; flex-direction: row;justify-content:space-around; }
+        .pic1_conclusion{padding:15px;width:500px;font-size:30px;}
     </style>
 
 
 
 </head>
 <body>
-    <div>
+    <div class="side_bar">
+        <a href="./ADW_10_profile.html">About Me</a>
+        <a href="https://github.com/anly501/anly-501-project-ADW10">Code</a>
+        <a href="https://github.com/anly501/anly-501-project-ADW10">Data</a>
+        <a href="./introduction.html">Intro</a>
+        <a href="./Data_Gathering.html">Data Gathering</a>
+        <a href="./Data_cleaning.html">Data Cleaning</a>
+        <a href="./Exploring_Data.html">Exploring Data</a>
+        <a href="./Naive_Bayes.html">Naive Bayes</a>
+        <a href="./Decision tree.html">Decision Tree</a>
+        <a href="./SVM.html">SVM</a>
+        <a href="./Cluster.html">Cluster</a>
+        <a href= "./ARM.html">ARM and Networking</a>
+        <a href="./Conclusion.html">Conclusion</a>
+      </div>
+   
+      <div>
         <div class="top-bar">
             <p style="font-size:80px; color:bisque;padding-left: 80px;padding-top:px; border-right:6px solid;padding-right:30px;font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;">
            Exploring Data
@@ -30,13 +52,38 @@
     </p>
     </div>
     </div>
+    
     <div>
-        <ul class="Link1">
-            <dy><a href="https://i.imgur.com/gIMFCi8.png "> Histogram of Friends</a></dy>
-            <dy><a href="https://i.imgur.com/ZoySjAc.png">Histogram of Retweet</a></dy>
-        </ul>
+        <p style="font-size:20px;font-weight:bold;margin-bottom: 0px;padding-left:80px">
+        Analysis on Tweet User who send related message
+        </p>
+
     </div>
-     </div>     
+    
+    <div class="box1">
+        <img src="../images/ED1.png" style="width:50%;height:50%">
+    </img>
+    <p class="pic1_conclusion" >
+        According to the digram, the most accounts existed are with low followers,but these accounts still has effect to made theit own prediction which also canbe used by us.
+    </p>    
+    </div>
+    <div class="box1">
+        <img src="../images/ED2.png" style="width:50%;height:50%">
+    </img>
+    <p class="pic1_conclusion" >
+        As the plot shows, we canbe lead to the same results as the followers plot shows.
+    </p>    
+    </div>
+    <br>
+    <br>
+    <br>
+    <div class="box1">
+        <img src="../images/ED3.png" style="width:50%;height:50%">
+    </img>
+    <p class="pic1_conclusion" >
+        As the diagram shows, we can easily identify the official accounts and the unofficial accounts, and we can find out the number of the unofficial account and the official account is unbalanced. However the message unofficial accounts offered can also be an important information.
+    </p>    
+    </div>
 
 
 

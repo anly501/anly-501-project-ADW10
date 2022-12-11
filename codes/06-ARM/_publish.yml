@@ -1,0 +1,4 @@
+- source: ARM.qmd
+  quarto-pub:
+    - id: 9858d05e-5511-47e2-9c62-e3ffd6de9385
+      url: 'https://quartopub.com/sites/adw10/arm'

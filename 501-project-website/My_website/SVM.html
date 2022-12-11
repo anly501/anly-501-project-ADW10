@@ -1,38 +1,136 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.247">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Yifei Wu">
+
+<title>svm</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="SVM_files/libs/clipboard/clipboard.min.js"></script>
+<script src="SVM_files/libs/quarto-html/quarto.js"></script>
+<script src="SVM_files/libs/quarto-html/popper.min.js"></script>
+<script src="SVM_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="SVM_files/libs/quarto-html/anchor.min.js"></script>
+<link href="SVM_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="SVM_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="SVM_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="SVM_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="SVM_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+
+
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-
     <style>
         .top-bar{background-image: url("https://images7.alphacoders.com/122/1225577.jpg");;background-size:cover;height:800px; weight:500px;display:flex;flex-direction: row;}
-           .top-title{font-size:15px;color:azure;padding-top: 95px;padding-left: 65px;}
-           .Link1{font-size: 20px;font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;}
-           .side_bar{border-bottom: #b00404 solid 3px;display:flex; flex-direction: row;justify-content:flex-start;padding-left: 8px;background-color:	#333333;padding-top: 13px;padding-bottom: 12px;}        
-           .side_bar a:link{color:white ;}
-           .side_bar a:visited{color:white;}
-           .side_bar a{text-decoration: none;margin-left: 21.5px;font-size: 16px;font-weight:normal;}
-       </style>
+        .top-title{font-size:15px;color:azure;padding-top: 95px;padding-left: 65px;}
+        .Link1{font-size: 20px;font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;}
+        .side_bar{border-bottom: #b00404 solid 3px;display:flex; flex-direction: row;justify-content:flex-start;padding-left: 8px;background-color:	#333333;padding-top: 13px;padding-bottom: 12px;}        
+        .side_bar a:link{color:white ;}
+        .side_bar a:visited{color:white;}
+        .side_bar a{text-decoration: none;margin-left: 21.5px;font-size: 16px;font-weight:normal;}
+    </style>
 </head>
 <body>
     <div class="side_bar">
-        <a href="./ADW_10_profile.html">About Me</a>
+        <a href="../../501-project-website/My_website/ADW_10_profile.html">About Me</a>
         <a href="https://github.com/anly501/anly-501-project-ADW10">Code</a>
         <a href="https://github.com/anly501/anly-501-project-ADW10">Data</a>
-        <a href="./introduction.html">Intro</a>
+        <a href="../../501-project-website/My_website/introduction.html">Intro</a>
         <a href="./Data_Gathering.html">Data Gathering</a>
         <a href="./Data_cleaning.html">Data Cleaning</a>
         <a href="./Exploring_Data.html">Exploring Data</a>
         <a href="./Naive_Bayes.html">Naive Bayes</a>
-        <a href="./Decision tree.html">Decision Tree</a>
+        <a href="./decision tree.html">Decision Tree</a>
         <a href="./SVM.html">SVM</a>
-        <a href="./Cluster.html">Cluster</a>
-        <a href= "./ARM.html">ARM and Networking</a>
-        <a href="./Conclusion.html">Conclusion</a>
-    </div>
-    <div>
+        <a href="../05-cluster/Cluster.html">Cluster</a>
+        <a href="../06-ARM/ARM.html">ARM and Networking</a>
+        <a href="../../501-project-website/My_website/Conclusion.html">Conclusion</a>
+      </div>  
+      <div>
         <div class="top-bar">
             <p style="font-size:80px; color:bisque;padding-left: 80px;padding-top:px; border-right:6px solid;padding-right:30px;font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;">
            SVM
@@ -42,29 +140,565 @@
     <h1>
         Anly-501 Project
     </h1>
-    <p style="Padding-left:10px";>
+    <p style="Padding-left:10px" ;="">
         Yifei Wu
     </p>
     </div>
-    </div>
+    </div> 
     
-    <div >
-        <img src="../images/S1.png" style="width:1500px;height:600px;">
-        <img src="../images/S2.png" style="width:1500px;height:600px;">
-        <img src="../images/S3.png" style="width:1500px;height:600px;">
-        <img src="../images/S4.png" style="width:1500px;height:800px;">
-        <img src="../images/S5.png" style="width:1500px;height:600px;">
-        <img src="../images/S6.png" style="width:1500px;height:800px;">
-        <img src="../images/S7.png" style="width:1500px;height:800px;">
-        <img src="../images/S8.png" style="width:1500px;height:800px;">
-       
-    </img>   
-    </div>
 
 
 
 
 
 
-</body>
-</html>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+
+
+
+
+
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="toc-section-number">1</span>  Introduction</a></li>
+  <li><a href="#theory" id="toc-theory" class="nav-link" data-scroll-target="#theory"><span class="toc-section-number">2</span>  Theory</a></li>
+  <li><a href="#read-data" id="toc-read-data" class="nav-link" data-scroll-target="#read-data"><span class="toc-section-number">3</span>  Read Data</a></li>
+  <li><a href="#class-distibution" id="toc-class-distibution" class="nav-link" data-scroll-target="#class-distibution"><span class="toc-section-number">4</span>  Class Distibution</a></li>
+  <li><a href="#baseline-model-for-comparsion" id="toc-baseline-model-for-comparsion" class="nav-link" data-scroll-target="#baseline-model-for-comparsion"><span class="toc-section-number">5</span>  Baseline Model for Comparsion</a></li>
+  <li><a href="#feature-selection" id="toc-feature-selection" class="nav-link" data-scroll-target="#feature-selection"><span class="toc-section-number">6</span>  Feature Selection</a></li>
+  <li><a href="#final-result-confusion-tree-model" id="toc-final-result-confusion-tree-model" class="nav-link" data-scroll-target="#final-result-confusion-tree-model"><span class="toc-section-number">7</span>  Final result: Confusion &amp; Tree model</a></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion"><span class="toc-section-number">8</span>  Conclusion</a></li>
+  </ul>
+</nav>
+</div>
+<main class="content" id="quarto-document-content">
+
+
+
+<section id="introduction" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Introduction</h1>
+<p>In this tab, we tried to build a distinguisher that used to distinguish the Tweets the user sent about the FIFA WorldCup which is official and unofficial and the model called SVM(Supported Vector Machine) will be used.</p>
+</section>
+<section id="theory" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Theory</h1>
+<p>In machine learning, support vector machines (SVMs, also support vector networks) are supervised learning models with associated learning algorithms that analyze data for classification and regression analysis.</p>
+<p>In addition to performing linear classification, SVMs can efficiently perform a non-linear classification using what is called the kernel trick, implicitly mapping their inputs into high-dimensional feature spaces.</p>
+<p>When data are unlabelled, supervised learning is not possible, and an unsupervised learning approach is required, which attempts to find natural clustering of the data to groups, and then map new data to these formed groups. The support vector clustering algorithm, created by Hava Siegelmann and Vladimir Vapnik, applies the statistics of support vectors, developed in the support vector machines algorithm, to categorize unlabeled data.</p>
+<p>More formally, a support vector machine constructs a hyperplane or set of hyperplanes in a high or infinite-dimensional space, which can be used for classification, regression, or other tasks like outliers detection.[3] Intuitively, a good separation is achieved by the hyperplane that has the largest distance to the nearest training-data point of any class (so-called functional margin), since in general the larger the margin, the lower the generalization error of the classifier</p>
+</section>
+<section id="read-data" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Read Data</h1>
+<div class="cell" data-execution_count="2">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">#import library</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.svm <span class="im">import</span> SVC</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> GridSearchCV</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.feature_extraction.text <span class="im">import</span> CountVectorizer</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> accuracy_score</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> precision_recall_fscore_support</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> precision_score</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> recall_score</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> confusion_matrix</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell" data-execution_count="4">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Read the data</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>df<span class="op">=</span>pd.read_csv(<span class="st">"../../data/01-modified-data/WC cleaneddata.csv"</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="4">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>created_at</th>
+      <th>author_id</th>
+      <th>Tweet Point</th>
+      <th>Follows</th>
+      <th>Likes</th>
+      <th>text</th>
+      <th>keyword</th>
+      <th>label</th>
+      <th>unofficial</th>
+      <th>retweet_count</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2022-09-13T23:58:10.000Z</td>
+      <td>1.447698e+18</td>
+      <td>-0.2960</td>
+      <td>1324.0</td>
+      <td>594.0</td>
+      <td>Dr alhammadi 22 They are also the graves of th...</td>
+      <td>qatar2022</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2022-09-13T23:31:59.000Z</td>
+      <td>2.986481e+09</td>
+      <td>-0.4515</td>
+      <td>697325.0</td>
+      <td>2907.0</td>
+      <td>DolapoAina  FIFAWorldCup  qatarairways  aviati...</td>
+      <td>qatar2022</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>65</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2022-09-13T23:20:24.000Z</td>
+      <td>3.133369e+09</td>
+      <td>0.0000</td>
+      <td>465.0</td>
+      <td>177.0</td>
+      <td>If anyone knows anyone going to Qatar for the ...</td>
+      <td>qatar2022</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>32</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>2022-09-13T23:08:07.000Z</td>
+      <td>4.701157e+09</td>
+      <td>0.0000</td>
+      <td>334.0</td>
+      <td>1524.0</td>
+      <td>67 DAYS TO GO      Qatar2022  FIFAWorldCup  Co...</td>
+      <td>qatar2022</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>2022-09-13T23:07:02.000Z</td>
+      <td>1.529608e+18</td>
+      <td>0.8475</td>
+      <td>760.0</td>
+      <td>1264.0</td>
+      <td>AlSultanBeach Here is a map I made for World C...</td>
+      <td>qatar2022</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>176</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>7083</th>
+      <td>2022-09-14T17:19:30.000Z</td>
+      <td>1.559664e+18</td>
+      <td>0.6697</td>
+      <td>188.0</td>
+      <td>38.0</td>
+      <td>malzamaty For daily rent During the World Cup ...</td>
+      <td>qatar world cup</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <th>7084</th>
+      <td>2022-09-14T17:19:15.000Z</td>
+      <td>1.559664e+18</td>
+      <td>0.6697</td>
+      <td>1735.0</td>
+      <td>989.0</td>
+      <td>WWE  nikkita wwe For daily rent During the Wor...</td>
+      <td>qatar world cup</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>7085</th>
+      <td>2022-09-14T17:18:59.000Z</td>
+      <td>1.382067e+18</td>
+      <td>0.9545</td>
+      <td>82.0</td>
+      <td>843.0</td>
+      <td>I have won a Gold medal by playing Qatar Airwa...</td>
+      <td>qatar world cup</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>252</td>
+    </tr>
+    <tr>
+      <th>7086</th>
+      <td>2022-09-14T17:18:56.000Z</td>
+      <td>1.559664e+18</td>
+      <td>0.6697</td>
+      <td>911.0</td>
+      <td>1547.0</td>
+      <td>SportsCenter For daily rent During the World C...</td>
+      <td>qatar world cup</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>7087</th>
+      <td>2022-09-14T17:18:51.000Z</td>
+      <td>8.336884e+17</td>
+      <td>0.6808</td>
+      <td>491.0</td>
+      <td>1063.0</td>
+      <td>Germany s 2022 World Cup campaign set to becom...</td>
+      <td>qatar world cup</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>252</td>
+    </tr>
+  </tbody>
+</table>
+<p>7088 rows × 10 columns</p>
+</div>
+</div>
+</div>
+</section>
+<section id="class-distibution" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Class Distibution</h1>
+<div class="cell" data-execution_count="5">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Make a plot for the distribution</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>FS<span class="op">=</span><span class="dv">20</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>plt.hist(df.label.astype(<span class="st">'string'</span>))</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Distribution of Class'</span>,fontsize<span class="op">=</span>FS)</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Class'</span>,fontsize<span class="op">=</span>FS)</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Count'</span>,fontsize<span class="op">=</span>FS)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="5">
+<pre><code>Text(0, 0.5, 'Count')</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="SVM_files/figure-html/cell-4-output-2.png" class="img-fluid"></p>
+</div>
+</div>
+</section>
+<section id="baseline-model-for-comparsion" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Baseline Model for Comparsion</h1>
+<div class="cell" data-execution_count="21">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>y<span class="op">=</span>df[<span class="st">"label"</span>]</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>y<span class="op">=</span>y.astype(<span class="st">"int"</span>)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co">#</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> random_classifier(y_data):</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    ypred<span class="op">=</span>[]</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    max_label<span class="op">=</span>np.<span class="bu">max</span>(y_data)<span class="op">;</span> <span class="co">#print(max_label)</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">0</span>,<span class="bu">len</span>(y_data)):</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>        ypred.append(<span class="bu">int</span>(np.floor((max_label<span class="op">+</span><span class="dv">1</span>)<span class="op">*</span>np.random.uniform(<span class="dv">0</span>,<span class="dv">1</span>))))</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"-----RANDOM CLASSIFIER-----"</span>)</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"accuracy"</span>,accuracy_score(y_data, ypred))</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"percision, recall, fscore,"</span>,precision_recall_fscore_support(y_data,ypred))</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>random_classifier(y)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>-----RANDOM CLASSIFIER-----
+accuracy 0.5063487584650113
+percision, recall, fscore, (array([0.6198254 , 0.39242296]), array([0.50597701, 0.50693937]), array([0.55714467, 0.44239044]), array([4350, 2738]))</code></pre>
+</div>
+</div>
+<p>According to the data we can the metric is around 50%, if the model peform better than this, than it’s bettter.</p>
+</section>
+<section id="feature-selection" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> Feature Selection</h1>
+<div class="cell" data-execution_count="5">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>X<span class="op">=</span>df[<span class="st">"text"</span>]</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>y<span class="op">=</span>df[<span class="st">'label'</span>]</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>y<span class="op">=</span>y.astype(<span class="st">"int"</span>)</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="co">#transform texts with countvectorizer</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>vectorizer <span class="op">=</span> CountVectorizer()</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>matrix <span class="op">=</span> vectorizer.fit_transform(X)</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> pd.DataFrame(matrix.toarray(),columns<span class="op">=</span>vectorizer.get_feature_names_out())</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="co">#split the data</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>x_train,x_test,y_train,y_test<span class="op">=</span>train_test_split(X,y,test_size<span class="op">=</span><span class="fl">0.2</span>)</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="final-result-confusion-tree-model" class="level1" data-number="7">
+<h1 data-number="7"><span class="header-section-number">7</span> Final result: Confusion &amp; Tree model</h1>
+<div class="cell" data-execution_count="6">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co">#write a function to report and plot the metrics and confusion matrix.</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> confusion_plot(y_data,y_pred):</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>        <span class="st">"ACCURACY: "</span><span class="op">+</span><span class="bu">str</span>(accuracy_score(y_data,y_pred))<span class="op">+</span><span class="st">"</span><span class="ch">\n</span><span class="st">"</span><span class="op">+</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>        <span class="st">"NEGATIVE RECALL (Y=0): "</span><span class="op">+</span><span class="bu">str</span>(recall_score(y_data,y_pred,pos_label<span class="op">=</span><span class="dv">0</span>))<span class="op">+</span><span class="st">"</span><span class="ch">\n</span><span class="st">"</span><span class="op">+</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>        <span class="st">"NEGATIVE PRECISION (Y=0): "</span><span class="op">+</span><span class="bu">str</span>(precision_score(y_data,y_pred,pos_label<span class="op">=</span><span class="dv">0</span>))<span class="op">+</span><span class="st">"</span><span class="ch">\n</span><span class="st">"</span><span class="op">+</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>        <span class="st">"POSITIVE RECALL (Y=1): "</span><span class="op">+</span><span class="bu">str</span>(recall_score(y_data,y_pred,pos_label<span class="op">=</span><span class="dv">1</span>))<span class="op">+</span><span class="st">"</span><span class="ch">\n</span><span class="st">"</span><span class="op">+</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>        <span class="st">"POSITIVE PRECISION (Y=1): "</span><span class="op">+</span><span class="bu">str</span>(precision_score(y_data,y_pred,pos_label<span class="op">=</span><span class="dv">1</span>))<span class="op">+</span><span class="st">"</span><span class="ch">\n</span><span class="st">"</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>    cf<span class="op">=</span>confusion_matrix(y_data, y_pred)</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>    <span class="co"># customize the anno</span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>    group_names <span class="op">=</span> [<span class="st">"True Neg"</span>,<span class="st">"False Pos"</span>,<span class="st">"False Neg"</span>,<span class="st">"True Pos"</span>]</span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>    group_counts <span class="op">=</span> [<span class="st">"</span><span class="sc">{0:0.0f}</span><span class="st">"</span>.<span class="bu">format</span>(value) <span class="cf">for</span> value <span class="kw">in</span> cf.flatten()]</span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>    group_percentages <span class="op">=</span> [<span class="st">"</span><span class="sc">{0:.2%}</span><span class="st">"</span>.<span class="bu">format</span>(value) <span class="cf">for</span> value <span class="kw">in</span> cf.flatten()<span class="op">/</span>np.<span class="bu">sum</span>(cf)]</span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>    labels <span class="op">=</span> [<span class="ss">f"</span><span class="sc">{</span>v1<span class="sc">}</span><span class="ch">\n</span><span class="sc">{</span>v2<span class="sc">}</span><span class="ch">\n</span><span class="sc">{</span>v3<span class="sc">}</span><span class="ss">"</span> <span class="cf">for</span> v1, v2, v3 <span class="kw">in</span> <span class="bu">zip</span>(group_names,group_counts,group_percentages)]</span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>    labels <span class="op">=</span> np.asarray(labels).reshape(<span class="dv">2</span>,<span class="dv">2</span>)</span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>    <span class="co">#plot the heatmap</span></span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>    fig<span class="op">=</span>sns.heatmap(cf, annot<span class="op">=</span>labels, fmt<span class="op">=</span><span class="st">""</span>, cmap<span class="op">=</span><span class="st">'Blues'</span>)</span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>    plt.title(<span class="st">"Confusion Matrix of Texts - Decision Tree"</span>,fontsize<span class="op">=</span><span class="dv">18</span>)</span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>    fig.set_xticklabels([<span class="st">"Easily affected"</span>,<span class="st">"Not easily affected"</span>],fontsize<span class="op">=</span><span class="dv">13</span>)</span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>    fig.set_yticklabels([<span class="st">"Easily affected"</span>,<span class="st">"Not easily affected"</span>],fontsize<span class="op">=</span><span class="dv">13</span>)</span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a>    fig.set_xlabel(<span class="st">"Predicted Labels"</span>,fontsize<span class="op">=</span><span class="dv">14</span>)</span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a>    fig.set_ylabel(<span class="st">"True Labels"</span>,fontsize<span class="op">=</span><span class="dv">14</span>)</span>
+<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a>    plt.show()</span>
+<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a><span class="co">#fit the model with the best hyperparametres</span></span>
+<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a>clf<span class="op">=</span>SVC(C<span class="op">=</span><span class="dv">1</span>,kernel<span class="op">=</span><span class="st">"linear"</span>)</span>
+<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a>clf.fit(x_train,y_train)</span>
+<span id="cb8-28"><a href="#cb8-28" aria-hidden="true" tabindex="-1"></a>yp_test<span class="op">=</span>clf.predict(x_test)</span>
+<span id="cb8-29"><a href="#cb8-29" aria-hidden="true" tabindex="-1"></a>confusion_plot(y_test,yp_test)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>ACCURACY: 0.9795486600846263
+NEGATIVE RECALL (Y=0): 0.978865406006674
+NEGATIVE PRECISION (Y=0): 0.9887640449438202
+POSITIVE RECALL (Y=1): 0.9807321772639692
+POSITIVE PRECISION (Y=1): 0.9640151515151515
+</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="SVM_files/figure-html/cell-7-output-2.png" class="img-fluid"></p>
+</div>
+</div>
+</section>
+<section id="conclusion" class="level1" data-number="8">
+<h1 data-number="8"><span class="header-section-number">8</span> Conclusion</h1>
+<p>It shows that SVM model is not suitable for my topic,it seems much worse than decision tree model when facing the same task. I think that I still need to stratch more information to achieve the target.</p>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  const viewSource = window.document.getElementById('quarto-view-source') ||
+                     window.document.getElementById('quarto-code-tools-source');
+  if (viewSource) {
+    const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+    viewSource.addEventListener("click", function(e) {
+      if (sourceUrl) {
+        // rstudio viewer pane
+        if (/\bcapabilities=\b/.test(window.location)) {
+          window.open(sourceUrl);
+        } else {
+          window.location.href = sourceUrl;
+        }
+      } else {
+        const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+        modal.show();
+      }
+      return false;
+    });
+  }
+  function toggleCodeHandler(show) {
+    return function(e) {
+      const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+      for (let i=0; i<detailsSrc.length; i++) {
+        const details = detailsSrc[i].parentElement;
+        if (show) {
+          details.open = true;
+        } else {
+          details.removeAttribute("open");
+        }
+      }
+      const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+      const fromCls = show ? "hidden" : "unhidden";
+      const toCls = show ? "unhidden" : "hidden";
+      for (let i=0; i<cellCodeDivs.length; i++) {
+        const codeDiv = cellCodeDivs[i];
+        if (codeDiv.classList.contains(fromCls)) {
+          codeDiv.classList.remove(fromCls);
+          codeDiv.classList.add(toCls);
+        } 
+      }
+      return false;
+    }
+  }
+  const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+  if (hideAllCode) {
+    hideAllCode.addEventListener("click", toggleCodeHandler(false));
+  }
+  const showAllCode = window.document.getElementById("quarto-show-all-code");
+  if (showAllCode) {
+    showAllCode.addEventListener("click", toggleCodeHandler(true));
+  }
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</div></body></html>
